@@ -1,0 +1,32 @@
+This Python code defines a movie recommendation program based on user ratings. Here's a breakdown of what it does:
+
+1. **Importing Libraries:**
+    - `pandas as pd`: This line imports the pandas library, commonly used for data manipulation and analysis in Python.
+
+2. **Loading Datasets:**
+    - The code assumes you have two CSV files:
+        - `ratings.csv`: This file likely contains user IDs, movie IDs, and ratings given by users to movies.
+        - `movies.csv`: This file likely contains information about the movies, possibly including movie IDs and titles.
+    - The program uses pandas' `read_csv` function to load these datasets into DataFrames named `ratings` and `movies`. Make sure to replace the paths with the actual locations of your CSV files.
+
+3. **Calculating Average Ratings:**
+    - The program uses the `ratings` DataFrame to group movie ratings by movie ID. 
+    - It then calculates the average rating for each movie using the `mean` function. 
+    - Finally, it resets the index of the resulting DataFrame (containing movie IDs and average ratings) and stores it in `movie_ratings`.
+
+4. **Recommendation Function:**
+    - The `get_movie_recommendations` function takes two arguments:
+        - `user_id`: This is the ID of the user for whom recommendations are being generated.
+        - `num_recommendations` (optional, default is 5): This defines the number of movie recommendations to return.
+    - The function first identifies movies the user hasn't rated. It achieves this by filtering the `movie_ratings` DataFrame to exclude movies present in the user's ratings history (obtained from the `ratings` DataFrame).
+    - Then, it sorts the remaining movies (unrated by the user) by their average rating in descending order. This ensures movies with higher average ratings appear first.
+    - Finally, it selects the top `num_recommendations` movies from the sorted list.
+    - To get the actual movie titles, the function iterates over the movie IDs in the recommendations and retrieves the corresponding titles from the `movies` DataFrame.
+    - It returns a list of recommended movie titles.
+
+5. **Example Usage:**
+    - The program defines a sample user ID (`user_id_to_recommend = 1`).
+    - It calls the `get_movie_recommendations` function with this user ID.
+    - The returned list of recommendations is printed, presenting the top 5 movie titles the user might enjoy based on average ratings (excluding movies the user has already rated).
+
+In summary, this program utilizes data about movie ratings to recommend movies to users based on the average ratings of movies they haven't seen yet. It's a simple example of a content-based filtering approach to movie recommendations.
